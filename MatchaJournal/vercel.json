@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "cd Matcha && npm install",
+  "buildCommand": "cd Matcha && npm run build",
+  "outputDirectory": "Matcha/dist",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
