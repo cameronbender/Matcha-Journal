@@ -638,7 +638,7 @@ export default function App() {
               {supabaseConfigured
                 ? 'Synced online'
                 : import.meta.env.PROD
-                  ? 'Add Supabase env in Vercel → Settings → Environment Variables, then redeploy'
+                  ? 'Production build has no Supabase keys — set SUPABASE_URL + SUPABASE_ANON_KEY for Production in Vercel, redeploy, check build logs'
                   : 'Local only — add Supabase keys to .env for cloud'}
             </div>
           </div>
