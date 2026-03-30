@@ -635,7 +635,11 @@ export default function App() {
           <div>
             <div className="logo-name">Emi's Matcha Journal</div>
             <div className="logo-sub">
-              {supabaseConfigured ? 'Synced online' : 'Local only — use VITE_SUPABASE_* in .env for cloud'}
+              {supabaseConfigured
+                ? 'Synced online'
+                : import.meta.env.PROD
+                  ? 'Add Supabase env in Vercel → Settings → Environment Variables, then redeploy'
+                  : 'Local only — add Supabase keys to .env for cloud'}
             </div>
           </div>
         </div>
