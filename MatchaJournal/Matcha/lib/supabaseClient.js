@@ -16,7 +16,9 @@ function pickUrl() {
 }
 
 function pickAnonKey() {
-  const publishable = import.meta.env.VITE_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY?.trim()
+  const publishable =
+    import.meta.env.VITE_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY?.trim() ||
+    import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY?.trim()
   const legacy = import.meta.env.VITE_SUPABASE_ANON_KEY?.trim()
   const publicAnon = import.meta.env.VITE_PUBLIC_SUPABASE_ANON_KEY?.trim()
 
