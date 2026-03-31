@@ -320,9 +320,22 @@ const style = `
     border: 1.5px dashed var(--cream-deep); border-radius: var(--r-lg);
     padding: 1.4rem; text-align: center; background: var(--cream-mid);
     cursor: pointer; transition: all 0.13s; position: relative; overflow: hidden;
+    display: block;
+    -webkit-tap-highlight-color: transparent;
   }
   .img-zone:hover { border-color: var(--sky); background: var(--sky-tint); }
-  .img-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .img-zone > *:not(input[type=file]) { pointer-events: none; position: relative; z-index: 0; }
+  .img-zone input[type=file] {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    min-height: 120px;
+    opacity: 0;
+    cursor: pointer;
+    font-size: 16px;
+  }
   .img-prev { width: 100%; max-height: 185px; object-fit: cover; border-radius: var(--r-md); display: block; }
   .img-placeholder {
     width: 36px; height: 36px; border-radius: var(--r-md);
@@ -638,7 +651,7 @@ export default function App() {
               {supabaseConfigured
                 ? 'Synced online'
                 : import.meta.env.PROD
-                  ? 'Production build has no Supabase keys — set SUPABASE_URL + SUPABASE_ANON_KEY for Production in Vercel, redeploy, check build logs'
+                  ? 'Add Supabase env in Vercel → Settings → Environment Variables, then redeploy'
                   : 'Local only — add Supabase keys to .env for cloud'}
             </div>
           </div>
@@ -808,13 +821,19 @@ function EntryForm({ entry, onSave, onCancel, saving = false }) {
       <div className="fp-card">
         <div className="fg">
           <label className="flbl">Photo</label>
-          <div className="img-zone" onClick={()=>fileRef.current.click()}>
-            <input ref={fileRef} type="file" accept="image/*" onChange={handleImg} />
+          <label className="img-zone">
+            <input
+              ref={fileRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImg}
+              aria-label="Choose a photo from your library or camera"
+            />
             {image
               ? <img src={image} className="img-prev" alt="preview" />
-              : <><div className="img-placeholder"><div className="img-placeholder-inner" /></div><div className="img-hint">Click to upload a photo</div></>
+              : <><div className="img-placeholder"><div className="img-placeholder-inner" /></div><div className="img-hint">Tap to add a photo</div></>
             }
-          </div>
+          </label>
           {image && <button className="btn btn-ghost" style={{marginTop:8,fontSize:'0.72rem',padding:'4px 13px'}} onClick={()=>setImage(null)}>Remove</button>}
         </div>
 
